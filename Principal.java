@@ -11,8 +11,8 @@ public class Principal {
         Asistente[] asistentes;
         asistentes = leerAsistentes("Asistentes.txt");
 
-        Festival f = new Festival("TESTFEST", "Ciudad Real", artistas, asistentes);
-        Seguridad s = new Seguridad("EMPRESATEST SL", 250);
+        Festival f = new Festival("JAVASTIC-FEST", "Ciudad Real", artistas, asistentes);
+        Seguridad s = new Seguridad("GSIA SL", 250);
 
         ejecutarMenu(f, s);
 
@@ -24,6 +24,10 @@ public class Principal {
         Asistente a = null;
 
         while (continuarPrograma) {
+            if (usuarioRegistrado) {
+                System.out.println("¡¡Hola, " + a.getNombre() + "!!");
+                
+            }
             System.out.println(
                     "\nElija una opcion:\n1. Mostrar artistas programados.\n2. Calcular precio de la seguridad.\n3. Consultar precio de una entrada.\n4. Simular compra.\n5. Comprar entrada.\n6. Mostrar entradas compradas.\n7. Iniciar sesion.\n8. Registrarse\n9. Salir.");
             System.out.print("Opción: ");
@@ -42,7 +46,8 @@ public class Principal {
                     break;
                 case 3:
                     if (!usuarioRegistrado) {
-                        System.out.println("Debe estar registrado para usar esta funcionalidad.");
+                        a=pedirRegristro(f);
+                        usuarioRegistrado = true;
                     } else {
                         System.out.print("Introduzca el nombre exacto del artista a consultar: ");
                         String nombre = TECLADO.next();
@@ -51,14 +56,16 @@ public class Principal {
                     break;
                 case 4:
                     if (!usuarioRegistrado) {
-                        System.out.println("Debe estar registrado para usar esta funcionalidad.");
+                        a=pedirRegristro(f);
+                        usuarioRegistrado = true;
                     } else {
                         simularCompra(f, a);
                     }
                     break;
                 case 5:
                     if (!usuarioRegistrado) {
-                        System.out.println("Debe estar registrado para usar esta funcionalidad.");
+                        a=pedirRegristro(f);
+                        usuarioRegistrado = true;
                     } else {
                         if(!f.puedeComprarEntrada(a)){
                             System.out.println("No puede comprar mas de 7 entradas.");
@@ -69,7 +76,8 @@ public class Principal {
                     break;
                 case 6:
                     if (!usuarioRegistrado) {
-                        System.out.println("Debe estar registrado para usar esta funcionalidad.");
+                        a=pedirRegristro(f);
+                        usuarioRegistrado = true;
                     } else {
                         System.out.println(a.listarEntradas());
                     }
@@ -128,6 +136,27 @@ public class Principal {
         } else {
             a = f.getAsistentes()[idUsuario];
             System.out.println("Inicio de sesion correcto.");
+        }
+        return a;
+    }
+
+    public static Asistente pedirRegristro(Festival f){
+        Asistente a = null;
+        System.out.println("No se ha encontrado al usuario. Por favor, registrese o inicie sesión a continuación.");
+        System.out.println("1. Registrarse\n2. Iniciar sesión");
+        System.out.print("Opción: ");
+        int opcion = TECLADO.nextInt();
+        switch (opcion) {
+            case 1:
+                a = registrarse();
+                break;
+            case 2:
+                a = iniciarSesion(f);
+                break;
+        
+            default:
+            System.out.println("Opción no válida. Se procede a volver al menú principal.");
+                break;
         }
         return a;
     }
