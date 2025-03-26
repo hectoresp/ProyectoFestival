@@ -15,4 +15,5 @@ public class Seguridad {
         return cobroPorGuarda;
     }
     // FIN GETTERS
+    
 }
