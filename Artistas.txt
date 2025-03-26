@@ -1,0 +1,11 @@
+g Maneskin rock false 70 90 15 true 4 true
+s Aitana pop true 80 90 20 false true 123456789
+s Quevedo reggaeton false 40 60 5 true false 987654321
+g Muse rock true 90 120 30 true 3 false
+g Coldplay pop true 120 120 50 false 4 true
+s Natti reggaeton false 50 75 10 true false 568923147
+g Slipknot metal true 80 90 20 true 9 true
+g Paramode rock false 60 90 15 true 3 false
+g Korn metal true 70 90 15 true 6 true
+s Ozuna reggaeton false 50 75 20 false false 666777222
+s Rihanna pop true 150 90 40 true true 787878787
