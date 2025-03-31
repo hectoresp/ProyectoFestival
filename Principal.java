@@ -16,6 +16,8 @@ public class Principal {
 
         ejecutarMenu(f, s);
 
+        System.out.println("Gracias por su confianza.");
+
     }
 
     public static void ejecutarMenu(Festival f, Seguridad s) {
