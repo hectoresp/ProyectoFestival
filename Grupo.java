@@ -21,7 +21,7 @@ public class Grupo extends Artista {
 
     @Override
     public String toString(){
-        String cadena = super.toString() + "\nNumero de integrantes: " + numIntegrantes + "\nTiene stand: " + stand;
+        String cadena = super.toString() + "\nNumero de integrantes: " + numIntegrantes + "\n¿Tiene stand?: " + (stand?"Sí":"No");
         return cadena;
     }
 

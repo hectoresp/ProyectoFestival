@@ -48,7 +48,7 @@ public abstract class Artista {
 
     @Override
     public String toString(){
-        String cadena = "Nombre: " + nombre + "\nGenero: " + genero + "\nEs headliner: " + headliner + "\nPrecio de entrada: " + precioEntrada + "\nDuracion del concierto: " + duracionConcierto + "\nAforo: " + aforo + "\nConfirmado: " + confirmado;
+        String cadena = "Nombre: " + nombre + "\nGenero: " + genero + "\n¿Es headliner?: " + (headliner?"Sí":"No") + "\nPrecio de entrada: " + precioEntrada + "\nDuracion del concierto: " + duracionConcierto + "\nAforo: " + aforo + "\nConfirmado: " + (confirmado?"Sí":"No");
         return cadena;
     }
 }

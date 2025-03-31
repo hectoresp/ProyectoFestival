@@ -20,7 +20,7 @@ public class Solista extends Artista {
 
     @Override
     public String toString(){
-        String cadena = super.toString() + "\nTiene camerino: " + camerino + "\nTelefono del manager: " + tfnoManager;
+        String cadena = super.toString() + "\n¿Tiene camerino?: " + (camerino?"Sí":"No") + "\nTelefono del manager: " + tfnoManager;
         return cadena;
     }
     @Override
