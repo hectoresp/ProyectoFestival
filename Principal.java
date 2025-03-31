@@ -20,6 +20,7 @@ public class Principal {
 
     }
 
+    // Menú principal
     public static void ejecutarMenu(Festival f, Seguridad s) {
         boolean continuarPrograma = true;
         boolean usuarioRegistrado = false;
@@ -28,7 +29,6 @@ public class Principal {
         while (continuarPrograma) {
             if (usuarioRegistrado) {
                 System.out.println(f.saludo(a));
-                
             }
             System.out.println(
                     "\nElija una opcion:\n1. Mostrar artistas programados.\n2. Calcular precio de la seguridad.\n3. Consultar precio de una entrada.\n4. Simular compra.\n5. Comprar entrada.\n6. Mostrar entradas compradas.\n7. Iniciar sesion.\n8. Registrarse\n9. Salir.");
@@ -36,19 +36,19 @@ public class Principal {
             int opcion = TECLADO.nextInt();
 
             switch (opcion) {
-                case 1:
+                case 1: // Listar artistas
                     System.out.println("A continuacion listamos todos los artistas.");
                     System.out.println(f.listarArtistas());
                     break;
-                case 2:
+                case 2: // Calcular precio de seguridad
                     int numGuardas = calcularNumGuardas(f.calcularTotalAsistentes(), f.getTotalStands(),
                             f.getTotalCamerinos());
                     System.out.printf("El coste por la seguridad con %d guardas sera: %d$\n", numGuardas,
                             f.precioSeguridad(s, numGuardas));
                     break;
-                case 3:
+                case 3: // Consulta el precio de la entrada de un artista
                     if (!usuarioRegistrado) {
-                        a=pedirRegristro(f);
+                        a = pedirRegistro(f);
                         usuarioRegistrado = true;
                     } else {
                         System.out.print("Introduzca el nombre exacto del artista a consultar: ");
@@ -56,17 +56,17 @@ public class Principal {
                         System.out.println(f.cadenaPrecioEntrada(nombre, a));
                     }
                     break;
-                case 4:
+                case 4: // Simula la compra para todos los headliners + camisetas
                     if (!usuarioRegistrado) {
-                        a=pedirRegristro(f);
+                        a=pedirRegistro(f);
                         usuarioRegistrado = true;
                     } else {
                         simularCompra(f, a);
                     }
                     break;
-                case 5:
+                case 5: // Comprar entrada
                     if (!usuarioRegistrado) {
-                        a=pedirRegristro(f);
+                        a=pedirRegistro(f);
                         usuarioRegistrado = true;
                     } else {
                         if(!f.puedeComprarEntrada(a)){
@@ -76,24 +76,24 @@ public class Principal {
                         }
                     }
                     break;
-                case 6:
+                case 6: // Listar entradas compradas
                     if (!usuarioRegistrado) {
-                        a=pedirRegristro(f);
+                        a=pedirRegistro(f);
                         usuarioRegistrado = true;
                     } else {
                         System.out.println(a.listarEntradas());
                     }
                     break;
-                case 7:
+                case 7: // Iniciar sesión
                     a = iniciarSesion(f);
                     usuarioRegistrado = true;
                     break;
-                case 8:
+                case 8: // Registro
                     a = registrarse();
                     f.addAsistente(a);
                     usuarioRegistrado = true;
                     break;
-                case 9:
+                case 9: // Terminar programa
                     continuarPrograma = false;
                     break;
                 default:
@@ -142,10 +142,11 @@ public class Principal {
         return a;
     }
 
-    public static Asistente pedirRegristro(Festival f){
+    // Pide al usuario registrarse o iniciar sesión
+    public static Asistente pedirRegistro(Festival f){
         Asistente a = null;
         System.out.println("No se ha encontrado al usuario. Por favor, registrese o inicie sesión a continuación.");
-        System.out.println("1. Registrarse\n2. Iniciar sesión");
+        System.out.println("1. Registrarse\n2. Iniciar sesión\n3.Volver al menú principal");
         System.out.print("Opción: ");
         int opcion = TECLADO.nextInt();
         switch (opcion) {
@@ -157,7 +158,7 @@ public class Principal {
                 break;
         
             default:
-            System.out.println("Opción no válida. Se procede a volver al menú principal.");
+                System.out.println("Volviendo al menú principal.");
                 break;
         }
         return a;
