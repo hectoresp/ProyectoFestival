@@ -25,7 +25,7 @@ public class Principal {
 
         while (continuarPrograma) {
             if (usuarioRegistrado) {
-                System.out.println("¡¡Hola, " + a.getNombre() + "!!");
+                System.out.println(f.saludo(a));
                 
             }
             System.out.println(

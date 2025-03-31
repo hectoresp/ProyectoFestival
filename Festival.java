@@ -230,4 +230,8 @@ public class Festival {
         }
         return puedeComprar;
     }
+
+    public String saludo(Asistente a){
+        return "Hola, " + a.getNombre();
+    }
 }

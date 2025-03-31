@@ -8,6 +8,7 @@ public class Solista extends Artista {
         this.tfnoManager = tfnoManager;
     }
     // GETTERS
+    @Override
     public boolean necesitaCamerino(){
         return camerino;
     }
@@ -21,5 +22,9 @@ public class Solista extends Artista {
     public String toString(){
         String cadena = super.toString() + "\nTiene camerino: " + camerino + "\nTelefono del manager: " + tfnoManager;
         return cadena;
+    }
+    @Override
+    public boolean necesitaStand() {
+        return false;
     }
 }

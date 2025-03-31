@@ -42,6 +42,9 @@ public abstract class Artista {
     }
     // FIN GETTERS
     
+    public abstract boolean necesitaCamerino();
+    public abstract boolean necesitaStand();
+
     @Override
     public String toString(){
         String cadena = "Nombre: " + nombre + "\nGenero: " + genero + "\nEs headliner: " + headliner + "\nPrecio de entrada: " + precioEntrada + "\nDuracion del concierto: " + duracionConcierto + "\nAforo: " + aforo + "\nConfirmado: " + confirmado;

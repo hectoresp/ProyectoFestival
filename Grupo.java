@@ -12,6 +12,8 @@ public class Grupo extends Artista {
     public int getNumIntegrantes(){
         return numIntegrantes;
     }
+
+    @Override
     public boolean necesitaStand(){
         return stand;
     }
@@ -21,5 +23,10 @@ public class Grupo extends Artista {
     public String toString(){
         String cadena = super.toString() + "\nNumero de integrantes: " + numIntegrantes + "\nTiene stand: " + stand;
         return cadena;
+    }
+
+    @Override
+    public boolean necesitaCamerino() {
+        return false;
     }
 }
