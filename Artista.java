@@ -42,6 +42,7 @@ public abstract class Artista {
     }
     // FIN GETTERS
     
+    // Métodos abstractos (polimorfismo)
     public abstract boolean necesitaCamerino();
     public abstract boolean necesitaStand();
 

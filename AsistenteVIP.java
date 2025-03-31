@@ -11,6 +11,7 @@ public class AsistenteVIP extends Asistente{
         return numTarjetaVIP;
     }
 
+    // Devuelve el valor del descuento para asistentes VIP
     @Override
     public double calcularDescuento(){
         double descuento = super.calcularDescuento() - 0.15;

@@ -16,6 +16,7 @@ public class Entrada {
     }
     // FIN GETTERS
     
+    @Override
     public String toString(){
         String cadena = "\nID entrada: " + idEntrada + "\nInformacion del artista:\n" + artista.toString();
         return cadena;

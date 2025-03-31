@@ -12,7 +12,7 @@ public class Principal {
         asistentes = leerAsistentes("Asistentes.txt");
 
         Festival f = new Festival("JAVASTIC-FEST", "Ciudad Real", artistas, asistentes);
-        Seguridad s = new Seguridad("GSIA SL", 250);
+        Seguridad s = new Seguridad("GSyA SL", 250);
 
         ejecutarMenu(f, s);
 

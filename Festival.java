@@ -231,6 +231,7 @@ public class Festival {
         return puedeComprar;
     }
 
+    // Saluda al usuario registrado
     public String saludo(Asistente a){
         return "Hola, " + a.getNombre();
     }
