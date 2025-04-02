@@ -235,6 +235,8 @@ public class Principal implements Interfaz {
         System.out.println("TOTAL: " + precioTotal);
     }
 
+    //crear método de consulta 7) del pdf
+
     // Lectura asistentes
     public static Asistente[] leerAsistentes(String cadena) throws IOException {
         Asistente[] asistentes = new Asistente[50];
