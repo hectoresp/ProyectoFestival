@@ -27,11 +27,17 @@ public class Principal {
         Asistente a = null;
 
         while (continuarPrograma) {
+            if(a != null){
+                usuarioRegistrado = true;
+            } else {
+                usuarioRegistrado = false;
+            }
+
             if (usuarioRegistrado) {
                 System.out.println(f.saludo(a));
             }
             System.out.println(
-                    "\nElija una opcion:\n1. Mostrar artistas programados.\n2. Calcular precio de la seguridad.\n3. Consultar precio de una entrada.\n4. Simular compra.\n5. Comprar entrada.\n6. Mostrar entradas compradas.\n7. Iniciar sesion.\n8. Registrarse\n9. Salir.");
+                    "\nElija una opcion:\n1. Mostrar artistas programados.\n2. Calcular precio de la seguridad.\n3. Consultar precio de una entrada.\n4. Simular compra.\n5. Comprar entrada.\n6. Mostrar entradas compradas.\n7. Iniciar sesion.\n8. Registrarse\n9. Cerrar sesión\n10. Salir.");
             System.out.print("Opción: ");
             int opcion = TECLADO.nextInt();
 
@@ -59,7 +65,6 @@ public class Principal {
                 case 4: // Simula la compra para todos los headliners + camisetas
                     if (!usuarioRegistrado) {
                         a=pedirRegistro(f);
-                        usuarioRegistrado = true;
                     } else {
                         simularCompra(f, a);
                     }
@@ -67,7 +72,6 @@ public class Principal {
                 case 5: // Comprar entrada
                     if (!usuarioRegistrado) {
                         a=pedirRegistro(f);
-                        usuarioRegistrado = true;
                     } else {
                         if(!f.puedeComprarEntrada(a)){
                             System.out.println("No puede comprar mas de 7 entradas.");
@@ -79,21 +83,22 @@ public class Principal {
                 case 6: // Listar entradas compradas
                     if (!usuarioRegistrado) {
                         a=pedirRegistro(f);
-                        usuarioRegistrado = true;
                     } else {
                         System.out.println(a.listarEntradas());
                     }
                     break;
                 case 7: // Iniciar sesión
                     a = iniciarSesion(f);
-                    usuarioRegistrado = true;
                     break;
                 case 8: // Registro
                     a = registrarse();
                     f.addAsistente(a);
-                    usuarioRegistrado = true;
                     break;
-                case 9: // Terminar programa
+                case 9: // Cerrar sesión
+                    System.out.println("Cerrando sesión...");
+                    a = null;
+                    break;
+                case 10: // Terminar programa
                     continuarPrograma = false;
                     break;
                 default:
@@ -105,22 +110,28 @@ public class Principal {
 
     // Pide al usuario todos los datos del registro
     public static Asistente registrarse() {
-        System.out.println("Introduzca su DNI: ");
+        System.out.print("Introduzca su DNI: ");
         String DNI = TECLADO.next();
 
-        System.out.println("Introduzca su nombre: ");
+        System.out.print("Introduzca su nombre: ");
         String nombre = TECLADO.next();
 
-        System.out.println("Introduzca su numero de tarjeta de credito: ");
+        System.out.print("Introduzca su numero de tarjeta de credito: ");
         String tarjeta = TECLADO.next();
 
-        System.out.println("¿Ha asistido antes a nuestro festival? (true/false)");
-        boolean haAsistidoAntes = TECLADO.nextBoolean();
+        System.out.print("¿Ha asistido antes a nuestro festival? (si/no)");
+        String haAsistidoAntesCadena = TECLADO.next();
 
-        while (haAsistidoAntes != true && haAsistidoAntes != false) {
-            System.out.println("Por favor, introduzca un valor válido (true/false)");
-            haAsistidoAntes = TECLADO.nextBoolean();
+        while (!haAsistidoAntesCadena.equalsIgnoreCase("si") && !haAsistidoAntesCadena.equalsIgnoreCase("no")) {
+            System.out.println("Por favor, introduzca un valor válido (si/no)");
+            haAsistidoAntesCadena = TECLADO.next();
         }
+
+        boolean haAsistidoAntes = false;
+        if (haAsistidoAntesCadena.equalsIgnoreCase("si")){
+            haAsistidoAntes = true;
+        }
+
         Asistente a = new Asistente(nombre, DNI, tarjeta, haAsistidoAntes);
         return a;
     }
@@ -146,7 +157,7 @@ public class Principal {
     public static Asistente pedirRegistro(Festival f){
         Asistente a = null;
         System.out.println("No se ha encontrado al usuario. Por favor, registrese o inicie sesión a continuación.");
-        System.out.println("1. Registrarse\n2. Iniciar sesión\n3.Volver al menú principal");
+        System.out.println("1. Registrarse\n2. Iniciar sesión\n3. Volver al menú principal");
         System.out.print("Opción: ");
         int opcion = TECLADO.nextInt();
         switch (opcion) {
