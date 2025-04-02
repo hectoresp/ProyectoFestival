@@ -244,6 +244,7 @@ public class Principal implements Interfaz {
         boolean frecuente, vip;
         int tarjetaVIP;
 
+        //utilizamos este bucle para mostrar en pantalla todos los asistentes con sus datos correspondientes
         int i = 0;
         while (nombre_f.hasNext()) {
             nombre = nombre_f.next();
