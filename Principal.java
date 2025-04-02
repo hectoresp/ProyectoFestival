@@ -27,7 +27,7 @@ public class Principal implements Interfaz {
         Asistente a = null;
 
         while (continuarPrograma) {
-            if(a != null){
+            if (a != null) {
                 usuarioRegistrado = true;
             } else {
                 usuarioRegistrado = false;
@@ -64,16 +64,16 @@ public class Principal implements Interfaz {
                     break;
                 case 4: // Simula la compra para todos los headliners + camisetas
                     if (!usuarioRegistrado) {
-                        a=pedirRegistro(f);
+                        a = pedirRegistro(f);
                     } else {
                         simularCompra(f, a);
                     }
                     break;
                 case 5: // Comprar entrada
                     if (!usuarioRegistrado) {
-                        a=pedirRegistro(f);
+                        a = pedirRegistro(f);
                     } else {
-                        if(!f.puedeComprarEntrada(a)){
+                        if (!f.puedeComprarEntrada(a)) {
                             System.out.println("No puede comprar mas de 7 entradas.");
                         } else {
                             comprarEntrada(f, a);
@@ -82,7 +82,7 @@ public class Principal implements Interfaz {
                     break;
                 case 6: // Listar entradas compradas
                     if (!usuarioRegistrado) {
-                        a=pedirRegistro(f);
+                        a = pedirRegistro(f);
                     } else {
                         System.out.println(a.listarEntradas());
                     }
@@ -128,7 +128,7 @@ public class Principal implements Interfaz {
         }
 
         boolean haAsistidoAntes = false;
-        if (haAsistidoAntesCadena.equalsIgnoreCase("si")){
+        if (haAsistidoAntesCadena.equalsIgnoreCase("si")) {
             haAsistidoAntes = true;
         }
 
@@ -154,7 +154,7 @@ public class Principal implements Interfaz {
     }
 
     // Pide al usuario registrarse o iniciar sesión
-    public static Asistente pedirRegistro(Festival f){
+    public static Asistente pedirRegistro(Festival f) {
         Asistente a = null;
         System.out.println("No se ha encontrado al usuario. Por favor, registrese o inicie sesión a continuación.");
         System.out.println("1. Registrarse\n2. Iniciar sesión\n3. Volver al menú principal");
@@ -167,7 +167,7 @@ public class Principal implements Interfaz {
             case 2:
                 a = iniciarSesion(f);
                 break;
-        
+
             default:
                 System.out.println("Volviendo al menú principal.");
                 break;
@@ -200,13 +200,13 @@ public class Principal implements Interfaz {
     public static int calcularNumGuardas(int totalAsistentes, int totalStands, int totalCamerinos) {
         System.out.println("El número total de asistentes (aforos completos) es: " + totalAsistentes);
 
-
         int numGuardas = totalAsistentes / ASISTENTES_POR_GUARD + GUARD_POR_STAND * totalStands
                 + GUARD_POR_CAMERINO * totalCamerinos;
         return numGuardas;
     }
 
-    // Simula la compra de todas las entradas para los headliners, comprando 1 camiesta por stand 
+    // Simula la compra de todas las entradas para los headliners, comprando 1
+    // camiesta por stand
     public static void simularCompra(Festival f, Asistente a) {
         int precioEntradas = 0;
         int precioCamisetas = 0;
@@ -219,7 +219,7 @@ public class Principal implements Interfaz {
             }
 
             if (artistas[i] instanceof Grupo && ((Grupo) artistas[i]).necesitaStand()) {
-                precioCamisetas = PRECIO_CAMI;
+                precioCamisetas += PRECIO_CAMI;
             }
         }
         double descuentoEntradas = a.calcularDescuento();
@@ -244,7 +244,8 @@ public class Principal implements Interfaz {
         boolean frecuente, vip;
         int tarjetaVIP;
 
-        //utilizamos este bucle para mostrar en pantalla todos los asistentes con sus datos correspondientes
+        // utilizamos este bucle para mostrar en pantalla todos los asistentes con sus
+        // datos correspondientes
         int i = 0;
         while (nombre_f.hasNext()) {
             nombre = nombre_f.next();
