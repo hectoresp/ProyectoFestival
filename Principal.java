@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Principal {
+public class Principal implements Interfaz {
 
     final static Scanner TECLADO = new Scanner(System.in);
 
@@ -12,7 +12,7 @@ public class Principal {
         asistentes = leerAsistentes("Asistentes.txt");
 
         Festival f = new Festival("JAVASTIC-FEST", "Ciudad Real", artistas, asistentes);
-        Seguridad s = new Seguridad("GSyA SL", 250);
+        Seguridad s = new Seguridad("GSyA SL");
 
         ejecutarMenu(f, s);
 
@@ -200,17 +200,9 @@ public class Principal {
     public static int calcularNumGuardas(int totalAsistentes, int totalStands, int totalCamerinos) {
         System.out.println("El número total de asistentes (aforos completos) es: " + totalAsistentes);
 
-        System.out.print("Introduzca cada cuantos asistentes quiere un guarda: ");
-        int asistentesPorGuarda = TECLADO.nextInt();
 
-        System.out.print("Introduzca cuantos guardas quiere por stand de merchandising: ");
-        int guardasPorStand = TECLADO.nextInt();
-
-        System.out.print("Introduzca cuantos guardas quiere por camerino: ");
-        int guardasPorCamerino = TECLADO.nextInt();
-
-        int numGuardas = totalAsistentes / asistentesPorGuarda + guardasPorStand * totalStands
-                + guardasPorCamerino * totalCamerinos;
+        int numGuardas = totalAsistentes / ASISTENTES_POR_GUARD + GUARD_POR_STAND * totalStands
+                + GUARD_POR_CAMERINO * totalCamerinos;
         return numGuardas;
     }
 
@@ -227,14 +219,14 @@ public class Principal {
             }
 
             if (artistas[i] instanceof Grupo && ((Grupo) artistas[i]).necesitaStand()) {
-                precioCamisetas += 25;
+                precioCamisetas = PRECIO_CAMI;
             }
         }
         double descuentoEntradas = a.calcularDescuento();
         double descuentoCamisetas = 1;
 
         if (a.haAsistidoAntes()) {
-            descuentoCamisetas -= 0.15;
+            descuentoCamisetas -= DESC_CAMI_RECURRENTE;
         }
         double precioTotal = precioEntradas * descuentoEntradas + precioCamisetas * descuentoCamisetas;
         System.out.println("El precio por comprar las entradas es: " + precioEntradas * descuentoEntradas);

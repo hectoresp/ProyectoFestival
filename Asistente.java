@@ -1,4 +1,4 @@
-public class Asistente {
+public class Asistente implements Interfaz{
 
     protected String nombre;
     protected String DNI;
@@ -56,7 +56,7 @@ public class Asistente {
     public double calcularDescuento(){
         double descuento = 1;
         if(haAsistidoAntes){
-            descuento = 0.9;
+            descuento -= DESC_RECURRENTE;
         }
         return descuento;
     }

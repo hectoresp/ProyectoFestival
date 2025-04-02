@@ -1,10 +1,9 @@
-public class Seguridad {
+public class Seguridad implements Interfaz{
     private String nombre;
-    private int cobroPorGuarda;
+    private int cobroPorGuarda=PRECIO_GUARD;
 
-    public Seguridad(String nombre, int cobroPorGuarda){
+    public Seguridad(String nombre){
         this.nombre = nombre;
-        this.cobroPorGuarda = cobroPorGuarda;
     }
 
     // GETTERS
