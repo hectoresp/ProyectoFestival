@@ -206,7 +206,7 @@ public class Principal implements Interfaz {
     }
 
     // Simula la compra de todas las entradas para los headliners, comprando 1
-    // camiesta por stand
+    // camiseta por stand disponible
     public static void simularCompra(Festival f, Asistente a) {
         int precioEntradas = 0;
         int precioCamisetas = 0;
@@ -225,6 +225,7 @@ public class Principal implements Interfaz {
         double descuentoEntradas = a.calcularDescuento();
         double descuentoCamisetas = 1;
 
+        //calculamos el precio total de la simulación de compra aplicando todos los descuentos si los hay
         if (a.haAsistidoAntes()) {
             descuentoCamisetas -= DESC_CAMI_RECURRENTE;
         }
@@ -275,6 +276,7 @@ public class Principal implements Interfaz {
         boolean headliner, camerinoRequerido, stand, confirmado;
         int precioEntrada, duracionActuacion, aforo, tfnoManager, cantidadIntegrantes;
 
+        //recorremos el fichero y vamos guardando los datos de los artistas
         int i = 0;
         while (leerFichero.hasNext()) {
             tipoArtista = leerFichero.next().charAt(0);
@@ -286,6 +288,7 @@ public class Principal implements Interfaz {
             aforo = leerFichero.nextInt();
             confirmado = leerFichero.nextBoolean();
 
+            //diferenciamos entre grupo y solista y guardamos los datos diferenciales
             if (tipoArtista == 'g') {
                 cantidadIntegrantes = leerFichero.nextInt();
                 stand = leerFichero.nextBoolean();
