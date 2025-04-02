@@ -87,7 +87,7 @@ public class Principal implements Interfaz {
                         System.out.println(a.listarEntradas());
                     }
                     break;
-                case 7:
+                case 7: //primero vemos si el usuario está registrado y luego si es VIP, mostrando 2 mensajes diferentes para cada opción 
                     if (!usuarioRegistrado) {
                         a = pedirRegistro(f);
                     } else if (!a.esVIP()) {
