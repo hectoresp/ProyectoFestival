@@ -1,4 +1,4 @@
-public class Festival {
+public class Festival implements Interfaz{
 
     private String nombre;
     private String ciudad;
@@ -225,7 +225,7 @@ public class Festival {
     // Comprueba si el asistente ha comprado ya 7 entradas
     public boolean puedeComprarEntrada(Asistente a){
         boolean puedeComprar = false;
-        if(a.getNEntradas() != 7){
+        if(a.getNEntradas() != MAX_NUM_ENTRADAS){
             puedeComprar = true;
         }
         return puedeComprar;
