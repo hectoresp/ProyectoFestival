@@ -37,7 +37,7 @@ public class Principal implements Interfaz {
                 System.out.println(f.saludo(a));
             }
             System.out.println(
-                    "\nElija una opcion:\n1. Mostrar artistas programados.\n2. Calcular precio de la seguridad.\n3. Consultar precio de una entrada.\n4. Simular compra.\n5. Comprar entrada.\n6. Mostrar entradas compradas.\n7. Iniciar sesion.\n8. Registrarse\n9. Cerrar sesión\n10. Salir.");
+                    "\nElija una opcion:\n1. Mostrar artistas programados.\n2. Calcular precio de la seguridad.\n3. Consultar precio de una entrada.\n4. Simular compra.\n5. Comprar entrada.\n6. Mostrar entradas compradas.\n7. Mostrar artistas con stand de merch (solo para asistentes VIP)\n8. Iniciar sesion.\n9. Registrarse\n10. Cerrar sesión\n11. Salir.");
             System.out.print("Opción: ");
             int opcion = TECLADO.nextInt();
 
@@ -87,18 +87,26 @@ public class Principal implements Interfaz {
                         System.out.println(a.listarEntradas());
                     }
                     break;
-                case 7: // Iniciar sesión
+                case 7:
+                    if (!usuarioRegistrado) {
+                        a = pedirRegistro(f);
+                    } else if (!a.esVIP()) {
+                        System.out.println("Debe ser asistente VIP para acceder a esta opción. Se le devolverá al menú principal.");
+                    } else
+                        leerArtistasConStand(f.getArtistas(), f);
+                    break;
+                case 8: // Iniciar sesión
                     a = iniciarSesion(f);
                     break;
-                case 8: // Registro
+                case 9: // Registro
                     a = registrarse();
                     f.addAsistente(a);
                     break;
-                case 9: // Cerrar sesión
+                case 10: // Cerrar sesión
                     System.out.println("Cerrando sesión...");
                     a = null;
                     break;
-                case 10: // Terminar programa
+                case 11: // Terminar programa
                     continuarPrograma = false;
                     break;
                 default:
@@ -225,7 +233,8 @@ public class Principal implements Interfaz {
         double descuentoEntradas = a.calcularDescuento();
         double descuentoCamisetas = 1;
 
-        //calculamos el precio total de la simulación de compra aplicando todos los descuentos si los hay
+        // calculamos el precio total de la simulación de compra aplicando todos los
+        // descuentos si los hay
         if (a.haAsistidoAntes()) {
             descuentoCamisetas -= DESC_CAMI_RECURRENTE;
         }
@@ -235,7 +244,15 @@ public class Principal implements Interfaz {
         System.out.println("TOTAL: " + precioTotal);
     }
 
-    //crear método de consulta 7) del pdf
+    public static void leerArtistasConStand(Artista[] artistas, Festival f) {
+
+        System.out.println("A continuación se mostrarán los artistas con stand para comprar merch: \n");
+        for (int i = 0; i < f.getNArtistas(); i++) {
+            if (artistas[i].necesitaStand()) {
+                System.out.println(artistas[i].toString() + "\n-------------\n");
+            }
+        }
+    }
 
     // Lectura asistentes
     public static Asistente[] leerAsistentes(String cadena) throws IOException {
@@ -278,7 +295,7 @@ public class Principal implements Interfaz {
         boolean headliner, camerinoRequerido, stand, confirmado;
         int precioEntrada, duracionActuacion, aforo, tfnoManager, cantidadIntegrantes;
 
-        //recorremos el fichero y vamos guardando los datos de los artistas
+        // recorremos el fichero y vamos guardando los datos de los artistas
         int i = 0;
         while (leerFichero.hasNext()) {
             tipoArtista = leerFichero.next().charAt(0);
@@ -290,7 +307,7 @@ public class Principal implements Interfaz {
             aforo = leerFichero.nextInt();
             confirmado = leerFichero.nextBoolean();
 
-            //diferenciamos entre grupo y solista y guardamos los datos diferenciales
+            // diferenciamos entre grupo y solista y guardamos los datos diferenciales
             if (tipoArtista == 'g') {
                 cantidadIntegrantes = leerFichero.nextInt();
                 stand = leerFichero.nextBoolean();
