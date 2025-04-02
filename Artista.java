@@ -1,5 +1,5 @@
 public abstract class Artista {
-    
+    //skjdfbsdjkfbsjkfbskj
     protected String nombre;
     protected String genero;
     protected boolean headliner;
