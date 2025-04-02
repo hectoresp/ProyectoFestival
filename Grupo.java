@@ -2,6 +2,7 @@ public class Grupo extends Artista {
     private int numIntegrantes;
     private boolean stand;
 
+    //método constructor
     public Grupo(String nombre, String genero, boolean headliner, int precioEntrada,int duracionConcierto, int aforo, boolean confirmado, int numIntegrantes, boolean stand){
         super(nombre, genero, headliner, precioEntrada, duracionConcierto, aforo, confirmado);
         this.numIntegrantes = numIntegrantes;
@@ -13,6 +14,7 @@ public class Grupo extends Artista {
         return numIntegrantes;
     }
 
+    //ampliación de la información del grupo usando "@override" para sobreescribir en los métodos de la clase abstracta "Artista".
     @Override
     public boolean necesitaStand(){
         return stand;

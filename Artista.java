@@ -8,6 +8,7 @@ public abstract class Artista {
     protected int aforo;
     protected boolean confirmado;
 
+    //método constructor (al ser una clase abstracta, realmente tendremos grupos y solistas, no tendremos un objeto "Artista" como tal)
     public Artista(String nombre, String genero, boolean headliner, int precioEntrada,int duracionConcierto, int aforo, boolean confirmado){
         this.nombre = nombre;
         this.genero = genero;
@@ -46,6 +47,9 @@ public abstract class Artista {
     public abstract boolean necesitaCamerino();
     public abstract boolean necesitaStand();
 
+
+    //función @override para poder acceder y añadir elementos a este método desde otras clases. Para ello se debe poner en los otros métodos
+    //el mismo nombre acompañado de la función "super.toString".
     @Override
     public String toString(){
         String cadena = "Nombre: " + nombre + "\nGenero: " + genero + "\n¿Es headliner?: " + (headliner?"Sí":"No") + "\nPrecio de entrada: " + precioEntrada + "\nDuracion del concierto: " + duracionConcierto + "\nAforo: " + aforo + "\nConfirmado: " + (confirmado?"Sí":"No");

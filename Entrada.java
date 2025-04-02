@@ -2,6 +2,7 @@ public class Entrada {
     private int idEntrada;
     private Artista artista;
 
+    //método constructor
     public Entrada(int idEntrada, Artista artista){
         this.idEntrada = idEntrada;
         this.artista = artista;
@@ -16,6 +17,7 @@ public class Entrada {
     }
     // FIN GETTERS
     
+    //función override para tomar el "toString" de la clase "Artista"
     @Override
     public String toString(){
         String cadena = "\nID entrada: " + idEntrada + "\nInformacion del artista:\n" + artista.toString();

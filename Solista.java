@@ -1,13 +1,17 @@
 public class Solista extends Artista {
     private boolean camerino;
     private int tfnoManager;
-    
+
+
+    //método constructor
     public Solista(String nombre, String genero, boolean headliner, int precioEntrada,int duracionConcierto, int aforo, boolean confirmado, boolean camerino, int tfnoManager){
         super(nombre, genero, headliner, precioEntrada, duracionConcierto, aforo, confirmado);
         this.camerino = camerino;
         this.tfnoManager = tfnoManager;
     }
     // GETTERS
+
+    //ampliación de la información del Solista usando "@override" para sobreescribir en los métodos de la clase abstracta "Artista".
     @Override
     public boolean necesitaCamerino(){
         return camerino;

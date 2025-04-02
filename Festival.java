@@ -8,10 +8,12 @@ public class Festival implements Interfaz{
     private int nAsistentes;
     private int totalStands, totalCamerinos;
 
+    //método constructor del festival
     public Festival(String nombre, String ciudad, Artista[] artistas, Asistente[] asistentes) {
         this.nombre = nombre;
         this.ciudad = ciudad;
 
+        //creamos una matriz con el número máximo de artistas (en este caso 20)
         this.artistas = new Artista[20];
         boolean hayArtistas = true;
         nArtistas = 0;
@@ -19,6 +21,7 @@ public class Festival implements Interfaz{
         totalStands = 0;
         totalCamerinos = 0;
 
+        //con este bucle observamos cuántos stands y camerinos son necesarios en total
         while (hayArtistas) {
             if (artistas[nArtistas] != null) {
                 this.artistas[nArtistas] = artistas[nArtistas];
