@@ -103,7 +103,7 @@ public class Principal implements Interfaz {
                     f.addAsistente(a);
                     break;
                 case 10: // Cerrar sesión
-                    System.out.println("Cerrando sesión...");
+                    System.out.println("¡¡Adiós, " + a.getNombre() + "!!\nCerrando sesión...");
                     a = null;
                     break;
                 case 11: // Terminar programa
