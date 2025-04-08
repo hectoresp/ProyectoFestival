@@ -93,7 +93,7 @@ public class Principal implements Interfaz {
                     } else if (!a.esVIP()) {
                         System.out.println("Debe ser asistente VIP para acceder a esta opción. Se le devolverá al menú principal.");
                     } else
-                        leerArtistasConStand(f.getArtistas(), f);
+                    System.out.println(f.leerArtistasConStand(f.getArtistas(),f));
                     break;
                 case 8: // Iniciar sesión
                     a = iniciarSesion(f);
@@ -242,16 +242,6 @@ public class Principal implements Interfaz {
         System.out.println("El precio por comprar las entradas es: " + precioEntradas * descuentoEntradas);
         System.out.println("El precio por comprar las camisetas es: " + precioCamisetas * descuentoCamisetas);
         System.out.println("TOTAL: " + precioTotal);
-    }
-
-    public static void leerArtistasConStand(Artista[] artistas, Festival f) {
-
-        System.out.println("A continuación se mostrarán los artistas con stand para comprar merch: \n");
-        for (int i = 0; i < f.getNArtistas(); i++) {
-            if (artistas[i].necesitaStand()) {
-                System.out.println(artistas[i].toString() + "\n-------------\n");
-            }
-        }
     }
 
     // Lectura asistentes

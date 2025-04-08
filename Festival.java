@@ -36,6 +36,7 @@ public class Festival implements Interfaz{
             }
         }
 
+
         // for(int i = 0; i < artistas.length && hayArtistas; i++){
         //     if(artistas[i] != null){
         //         this.artistas[i] = artistas[i];
@@ -113,6 +114,19 @@ public class Festival implements Interfaz{
         return totalCamerinos;
     }
     // FIN GETTERS
+
+    public String leerArtistasConStand(Artista[] listaArtistas, Festival f) {
+
+        String cadena="";
+
+        cadena="A continuación se mostrarán los artistas con stand para comprar merch: \n";
+        for (int i = 0; i < f.getNArtistas(); i++) {
+            if (listaArtistas[i].necesitaStand()) {
+                cadena+=listaArtistas[i].toString() + "\n-------------\n";
+            }
+        }
+        return cadena;
+    }
 
     // Calcula el precio de la seguridad
     public int precioSeguridad(Seguridad empresaSeguridad, int numGuardas) {
