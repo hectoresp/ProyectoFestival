@@ -87,13 +87,14 @@ public class Principal implements Interfaz {
                         System.out.println(a.listarEntradas());
                     }
                     break;
-                case 7: //primero vemos si el usuario está registrado y luego si es VIP, mostrando 2 mensajes diferentes para cada opción 
+                case 7: // primero vemos si el usuario está registrado y luego si es VIP, mostrando 2
+                        // mensajes diferentes para cada opción
                     if (!usuarioRegistrado) {
                         a = pedirRegistro(f);
                     } else if (!a.esVIP()) {
                         System.out.println("Debe ser asistente VIP para acceder a esta opción. Se le devolverá al menú principal.");
                     } else
-                    System.out.println(f.leerArtistasConStand(f.getArtistas(),f));
+                        System.out.println(f.leerArtistasConStand(f.getArtistas(), f));
                     break;
                 case 8: // Iniciar sesión
                     a = iniciarSesion(f);
