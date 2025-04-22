@@ -7,9 +7,21 @@ public class Principal implements Interfaz {
 
     public static void main(String[] args) throws IOException {
         Artista[] artistas;
-        artistas = leerArtistas("Artistas.txt");
+        try {
+            artistas = leerArtistas("Artistas.txt");
+        } catch (Exception e) {
+           artistas = null;
+           System.out.println("Error leyendo el archivo 'Artistas.txt'.\n");
+        }
         Asistente[] asistentes;
-        asistentes = leerAsistentes("Asistentes.txt");
+        try {
+            asistentes = leerAsistentes("Asistentes.txt");
+        } catch (Exception e) {
+           asistentes = null;
+           System.out.println("Error leyendo el archivo 'Asistentes.txt'.\n");
+        }
+
+
 
         Festival f = new Festival("JAVASTIC-FEST", "Ciudad Real", artistas, asistentes);
         Seguridad s = new Seguridad("GSyA SL");
