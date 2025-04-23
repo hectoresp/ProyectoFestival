@@ -25,7 +25,7 @@ public class Festival implements Interfaz{
         while (hayArtistas) {
             if (artistas[nArtistas] != null) {
                 this.artistas[nArtistas] = artistas[nArtistas];
-                if (artistas[nArtistas] instanceof Grupo && ((Grupo) artistas[nArtistas]).necesitaStand()) {
+                if (artistas[nArtistas].necesitaStand()) {
                     totalStands++;
                 } else if (artistas[nArtistas] instanceof Solista && ((Solista) artistas[nArtistas]).necesitaCamerino()) {
                     totalCamerinos++;
@@ -85,9 +85,6 @@ public class Festival implements Interfaz{
         artistas[nArtistas] = artista;
     }
 
-    public Asistente[] getAsistentes() {
-        return asistentes;
-    }
 
     public void addAsistente(Asistente asistente) {
         asistentes[nAsistentes] = asistente;
@@ -115,23 +112,23 @@ public class Festival implements Interfaz{
     }
     // FIN GETTERS
 
-    public String leerArtistasConStand(Artista[] listaArtistas, Festival f) {
+    public String leerArtistasConStand() {
 
         String cadena="";
 
         cadena="A continuación se mostrarán los artistas con stand para comprar merch: \n";
-        for (int i = 0; i < f.getNArtistas(); i++) {
-            if (listaArtistas[i].necesitaStand()) {
-                cadena+=listaArtistas[i].toString() + "\n-------------\n";
+        for (int i = 0; i < getNArtistas(); i++) {
+            if (artistas[i].necesitaStand()) {
+                cadena+=artistas[i].toString() + "\n-------------\n";
             }
         }
         return cadena;
     }
 
     // Calcula el precio de la seguridad
-    public int precioSeguridad(Seguridad empresaSeguridad, int numGuardas) {
+    public int precioSeguridad(Seguridad empresaSeguridad) {
         int cobroPorGuarda = empresaSeguridad.getCobro();
-        return cobroPorGuarda * numGuardas;
+        return cobroPorGuarda * calcularGuardas;
     }
 
     // Calcula el total de asistentes si se llenasen los aforos
