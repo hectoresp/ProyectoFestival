@@ -61,7 +61,4 @@ public class Asistente implements Interfaz{
         return descuento;
     }
 
-    public boolean esVIP(){
-        return false;
-    }
 }

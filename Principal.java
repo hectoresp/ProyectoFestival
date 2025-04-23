@@ -100,7 +100,7 @@ public class Principal implements Interfaz {
                         // mensajes diferentes para cada opción
                     if (!usuarioRegistrado) {
                         a = pedirRegistro(f);
-                    } else if (!a.esVIP()) {
+                    } else if (a instanceof AsistenteVIP==false) {
                         System.out.println("Debe ser asistente VIP para acceder a esta opción. Se le devolverá al menú principal.");
                     } else
                         System.out.println(f.leerArtistasConStand());

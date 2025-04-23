@@ -91,8 +91,8 @@ public class Festival implements Interfaz{
     }
 
     public boolean asistenteVIP(Asistente asistente){
-        boolean esVIP=asistente.esVIP();
-        return esVIP;
+
+        return asistente instanceof AsistenteVIP;
     }
 
     public int getNArtistas() {
