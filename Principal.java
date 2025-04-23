@@ -48,7 +48,7 @@ public class Principal implements Interfaz {
             }
             System.out.println("\nElija una opcion:\n1. Mostrar artistas programados.\n2. Calcular precio de la seguridad.\n3. Consultar precio de una entrada.\n4. Simular compra.\n5. Comprar entrada.\n6. Mostrar entradas compradas.\n7. Mostrar artistas con stand de merch (solo para asistentes VIP)\n8. Iniciar sesion.\n9. Registrarse\n10. Cerrar sesión\n11. Salir.");
             System.out.print("Opción: ");
-            int opcion = numMenu();
+            int opcion = numIntCorrecto();
 
             switch (opcion) {
                 case 1: // Listar artistas
@@ -126,7 +126,7 @@ public class Principal implements Interfaz {
         }
     }
 
-    public static int numMenu() {
+    public static int numIntCorrecto() {
         int numMenu = 0;
         boolean numCorrecto = false;
         while (!numCorrecto) {
@@ -193,7 +193,7 @@ public class Principal implements Interfaz {
         String cadena = "No se ha encontrado al usuario. Por favor, registrese o inicie sesión a continuación.\n1. Registrarse\n2. Iniciar sesión\n3. Volver al menú principal\nOpción: ";
         System.out.println(cadena);
 
-        int opcion = TECLADO.nextInt();
+        int opcion = numIntCorrecto();
         switch (opcion) {
             case 1:
                 a = registrarse();
@@ -215,11 +215,11 @@ public class Principal implements Interfaz {
         System.out.println("(Elija el número de artista que quieras comprar una entrada)");
         System.out.println(f.listarNombresArtistas());
         System.out.print("Artista: ");
-        int idArtista = TECLADO.nextInt();
+        int idArtista = numIntCorrecto();
 
         while (idArtista < 0 || idArtista >= f.getNArtistas()) {
             System.out.println("El número de artista introducido no es válido. Introduzca un número válido.");
-            idArtista = TECLADO.nextInt();
+            idArtista = numIntCorrecto();
         }
 
         f.comprarEntrada(idArtista, a);
