@@ -20,8 +20,4 @@ public class AsistenteVIP extends Asistente{
         double descuento = super.calcularDescuento() - DESC_VIP;
         return descuento;
     }
-    @Override
-    public boolean esVIP(){
-        return true;
-    }
 }
