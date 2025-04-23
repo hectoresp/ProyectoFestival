@@ -51,7 +51,14 @@ public class Principal implements Interfaz {
             System.out.println(
                     "\nElija una opcion:\n1. Mostrar artistas programados.\n2. Calcular precio de la seguridad.\n3. Consultar precio de una entrada.\n4. Simular compra.\n5. Comprar entrada.\n6. Mostrar entradas compradas.\n7. Mostrar artistas con stand de merch (solo para asistentes VIP)\n8. Iniciar sesion.\n9. Registrarse\n10. Cerrar sesión\n11. Salir.");
             System.out.print("Opción: ");
-            int opcion = TECLADO.nextInt();
+            int opcion;
+            try {
+                opcion = TECLADO.nextInt();                
+            } catch (Exception e) {
+                System.out.println("Por favor, no introduzca caracteres que no sean números. Se procede a cerrar el programa.\n\n");
+                opcion=11;
+            }
+
 
             switch (opcion) {
                 case 1: // Listar artistas
