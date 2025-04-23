@@ -10,18 +10,16 @@ public class Principal implements Interfaz {
         try {
             artistas = leerArtistas("Artistas.txt");
         } catch (Exception e) {
-           artistas = null;
-           System.out.println("Error leyendo el archivo 'Artistas.txt'.\n");
+            artistas = null;
+            System.out.println("Error leyendo el archivo 'Artistas.txt'.\n");
         }
         Asistente[] asistentes;
         try {
             asistentes = leerAsistentes("Asistentes.txt");
         } catch (Exception e) {
-           asistentes = null;
-           System.out.println("Error leyendo el archivo 'Asistentes.txt'.\n");
+            asistentes = null;
+            System.out.println("Error leyendo el archivo 'Asistentes.txt'.\n");
         }
-
-
 
         Festival f = new Festival("JAVASTIC-FEST", "Ciudad Real", artistas, asistentes);
         Seguridad s = new Seguridad("GSyA SL");
@@ -48,17 +46,9 @@ public class Principal implements Interfaz {
             if (usuarioRegistrado) {
                 System.out.println(f.saludo(a));
             }
-            System.out.println(
-                    "\nElija una opcion:\n1. Mostrar artistas programados.\n2. Calcular precio de la seguridad.\n3. Consultar precio de una entrada.\n4. Simular compra.\n5. Comprar entrada.\n6. Mostrar entradas compradas.\n7. Mostrar artistas con stand de merch (solo para asistentes VIP)\n8. Iniciar sesion.\n9. Registrarse\n10. Cerrar sesión\n11. Salir.");
+            System.out.println("\nElija una opcion:\n1. Mostrar artistas programados.\n2. Calcular precio de la seguridad.\n3. Consultar precio de una entrada.\n4. Simular compra.\n5. Comprar entrada.\n6. Mostrar entradas compradas.\n7. Mostrar artistas con stand de merch (solo para asistentes VIP)\n8. Iniciar sesion.\n9. Registrarse\n10. Cerrar sesión\n11. Salir.");
             System.out.print("Opción: ");
-            int opcion;
-            try {
-                opcion = TECLADO.nextInt();                
-            } catch (Exception e) {
-                System.out.println("Por favor, no introduzca caracteres que no sean números. Se procede a cerrar el programa.\n\n");
-                opcion=11;
-            }
-
+            int opcion = numMenu();
 
             switch (opcion) {
                 case 1: // Listar artistas
@@ -66,10 +56,10 @@ public class Principal implements Interfaz {
                     System.out.println(f.listarArtistas());
                     break;
                 case 2: // Calcular precio de seguridad
-                    int numGuardas = calcularNumGuardas(f.calcularTotalAsistentes(), f.getTotalStands(),
+                    int numGuardas = f.calcularNumGuardas(f.calcularTotalAsistentes(), f.getTotalStands(),
                             f.getTotalCamerinos());
                     System.out.printf("El coste por la seguridad con %d guardas sera: %d$\n", numGuardas,
-                            f.precioSeguridad(s, numGuardas));
+                            f.precioSeguridad(s));
                     break;
                 case 3: // Consulta el precio de la entrada de un artista
                     if (!usuarioRegistrado) {
@@ -113,7 +103,7 @@ public class Principal implements Interfaz {
                     } else if (!a.esVIP()) {
                         System.out.println("Debe ser asistente VIP para acceder a esta opción. Se le devolverá al menú principal.");
                     } else
-                        System.out.println(f.leerArtistasConStand(f.getArtistas(), f));
+                        System.out.println(f.leerArtistasConStand());
                     break;
                 case 8: // Iniciar sesión
                     a = iniciarSesion(f);
@@ -134,6 +124,22 @@ public class Principal implements Interfaz {
                     break;
             }
         }
+    }
+
+    public static int numMenu() {
+        int numMenu = 0;
+        boolean numCorrecto = false;
+        while (!numCorrecto) {
+            try {
+                numMenu = TECLADO.nextInt();
+                numCorrecto = true;
+            } catch (Exception e) {
+                System.out.println("Los caracteres introducidos no son válidos, por favor intoduzca un número dentro de las opciones del menú:");
+                TECLADO.nextLine();
+
+            }
+        }
+        return numMenu;
     }
 
     // Pide al usuario todos los datos del registro
@@ -175,7 +181,7 @@ public class Principal implements Interfaz {
         if (idUsuario == -1) {
             System.out.println("No se ha encontrado al usuario. Por favor, registrese.");
         } else {
-            a = f.getAsistentes()[idUsuario];
+            a = f.getAsistente(idUsuario);
             System.out.println("Inicio de sesion correcto.");
         }
         return a;
@@ -184,9 +190,9 @@ public class Principal implements Interfaz {
     // Pide al usuario registrarse o iniciar sesión
     public static Asistente pedirRegistro(Festival f) {
         Asistente a = null;
-        System.out.println("No se ha encontrado al usuario. Por favor, registrese o inicie sesión a continuación.");
-        System.out.println("1. Registrarse\n2. Iniciar sesión\n3. Volver al menú principal");
-        System.out.print("Opción: ");
+        String cadena = "No se ha encontrado al usuario. Por favor, registrese o inicie sesión a continuación.\n1. Registrarse\n2. Iniciar sesión\n3. Volver al menú principal\nOpción: ";
+        System.out.println(cadena);
+
         int opcion = TECLADO.nextInt();
         switch (opcion) {
             case 1:
@@ -225,14 +231,6 @@ public class Principal implements Interfaz {
     }
 
     // Pide al usuario datos para calcular el numero total de guardas
-    public static int calcularNumGuardas(int totalAsistentes, int totalStands, int totalCamerinos) {
-        System.out.println("El número total de asistentes (aforos completos) es: " + totalAsistentes);
-
-        int numGuardas = totalAsistentes / ASISTENTES_POR_GUARD + GUARD_POR_STAND * totalStands
-                + GUARD_POR_CAMERINO * totalCamerinos;
-        return numGuardas;
-    }
-
     // Simula la compra de todas las entradas para los headliners, comprando 1
     // camiseta por stand disponible
     public static void simularCompra(Festival f, Asistente a) {
@@ -246,7 +244,7 @@ public class Principal implements Interfaz {
                 precioEntradas += artistas[i].getPrecio();
             }
 
-            if (artistas[i] instanceof Grupo && ((Grupo) artistas[i]).necesitaStand()) {
+            if (artistas[i].necesitaStand()) {
                 precioCamisetas += PRECIO_CAMI;
             }
         }
