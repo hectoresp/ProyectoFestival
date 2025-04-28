@@ -25,9 +25,6 @@ public class Principal implements Interfaz {
         Seguridad s = new Seguridad("GSyA SL");
 
         ejecutarMenu(f, s);
-
-        System.out.println("Gracias por su confianza.");
-
     }
 
     // Menú principal
@@ -118,6 +115,7 @@ public class Principal implements Interfaz {
                     break;
                 case 11: // Terminar programa
                     continuarPrograma = false;
+                    System.out.println("Cerrando programa. ¡¡Gracias por su confianza!!");
                     break;
                 default:
                     System.out.println("Opción no válida.");
