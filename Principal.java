@@ -65,7 +65,6 @@ public class Principal implements Interfaz {
                 case 3: // Consulta el precio de la entrada de un artista
                     if (!usuarioRegistrado) {
                         a = pedirRegistro(f);
-                        usuarioRegistrado = true;
                     } else {
                         System.out.print("Introduzca el nombre exacto del artista a consultar: ");
                         String nombre = TECLADO.next();
