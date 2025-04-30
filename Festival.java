@@ -132,15 +132,8 @@ public class Festival implements Interfaz{
     // Calcula el precio de la seguridad
     public int precioSeguridad(Seguridad empresaSeguridad) {
         int cobroPorGuarda = empresaSeguridad.getCobro();
-        return cobroPorGuarda * calcularNumGuardas(getNAsistentes(), getTotalStands(), getTotalCamerinos());
-    }
-
-    public int calcularNumGuardas(int totalAsistentes, int totalStands, int totalCamerinos) {
-        System.out.println("El número total de asistentes (aforos completos) es: " + totalAsistentes);
-
-        int numGuardas = totalAsistentes / ASISTENTES_POR_GUARD + GUARD_POR_STAND * totalStands
-                + GUARD_POR_CAMERINO * totalCamerinos;
-        return numGuardas;
+        int numGuardas = calcularTotalAsistentes()/ASISTENTES_POR_GUARD + GUARD_POR_STAND*totalStands + GUARD_POR_CAMERINO*totalCamerinos;
+        return cobroPorGuarda * numGuardas;
     }
 
     // Calcula el total de asistentes si se llenasen los aforos

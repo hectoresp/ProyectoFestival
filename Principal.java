@@ -36,7 +36,7 @@ public class Principal implements Interfaz {
     // Menú principal
     public static void ejecutarMenu(Festival f, Seguridad s) {
         boolean continuarPrograma = true;
-        boolean usuarioRegistrado = false;
+        boolean usuarioRegistrado;
         Asistente a = null;
 
         while (continuarPrograma) {
@@ -49,6 +49,7 @@ public class Principal implements Interfaz {
             if (usuarioRegistrado) {
                 System.out.println(f.saludo(a));
             }
+
             System.out.println("\nElija una opcion:\n1. Mostrar artistas programados.\n2. Calcular precio de la seguridad.\n3. Consultar precio de una entrada.\n4. Simular compra.\n5. Comprar entrada.\n6. Mostrar entradas compradas.\n7. Mostrar artistas con stand de merch (solo para asistentes VIP)\n8. Iniciar sesion.\n9. Registrarse\n10. Cerrar sesión\n11. Salir.");
             System.out.print("Opción: ");
             int opcion = introducirEntero();
@@ -59,10 +60,7 @@ public class Principal implements Interfaz {
                     System.out.println(f.listarArtistas());
                     break;
                 case 2: // Calcular precio de seguridad
-                    int numGuardas = f.calcularNumGuardas(f.calcularTotalAsistentes(), f.getTotalStands(),
-                            f.getTotalCamerinos());
-                    System.out.printf("El coste por la seguridad con %d guardas sera: %d$\n", numGuardas,
-                            f.precioSeguridad(s));
+                    System.out.printf("El coste por la seguridad sera: %d$\n", f.precioSeguridad(s));
                     break;
                 case 3: // Consulta el precio de la entrada de un artista
                     if (!usuarioRegistrado) {
@@ -131,19 +129,17 @@ public class Principal implements Interfaz {
     }
 
     public static int introducirEntero() {
-        int numMenu = 0;
-        boolean numCorrecto = false;
-        while (!numCorrecto) {
+        int n = 0;
+        boolean esCorrecto = false;
+        while (!esCorrecto) {
             try {
-                numMenu = TECLADO.nextInt();
-                numCorrecto = true;
+                n = TECLADO.nextInt();
+                esCorrecto = true;
             } catch (InputMismatchException e) {
-                System.out.println("Los caracteres introducidos no son válidos, por favor intoduzca un número dentro de las opciones del menú:");
-                TECLADO.nextLine();
-
+                System.out.println("Debe introducir un número entero.");
             }
         }
-        return numMenu;
+        return n;
     }
 
     // Pide al usuario todos los datos del registro
