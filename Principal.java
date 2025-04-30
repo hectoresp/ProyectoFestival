@@ -9,14 +9,14 @@ public class Principal implements Interfaz {
         Artista[] artistas;
         try {
             artistas = leerArtistas("Artistas.txt");
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             artistas = null;
             System.out.println("Error leyendo el archivo 'Artistas.txt'.\n");
         }
         Asistente[] asistentes;
         try {
             asistentes = leerAsistentes("Asistentes.txt");
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             asistentes = null;
             System.out.println("Error leyendo el archivo 'Asistentes.txt'.\n");
         }
