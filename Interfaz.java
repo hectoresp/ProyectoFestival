@@ -8,5 +8,7 @@ public interface Interfaz {
     int ASISTENTES_POR_GUARD=500;
     int GUARD_POR_STAND=2;
     int GUARD_POR_CAMERINO=1;
+    int MIN_MENU=1;
+    int MAX_MENU=11;
 
 }

@@ -5,7 +5,7 @@ public class Principal implements Interfaz {
 
     final static Scanner TECLADO = new Scanner(System.in);
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException,MenuException {
         
         Artista[] artistas;
         try {
@@ -34,7 +34,7 @@ public class Principal implements Interfaz {
     }
 
     // Menú principal
-    public static void ejecutarMenu(Festival f, Seguridad s) {
+    public static void ejecutarMenu(Festival f, Seguridad s) throws MenuException {
         boolean continuarPrograma = true;
         boolean usuarioRegistrado;
         Asistente a = null;
@@ -52,7 +52,9 @@ public class Principal implements Interfaz {
 
             System.out.println("\nElija una opcion:\n1. Mostrar artistas programados.\n2. Calcular precio de la seguridad.\n3. Consultar precio de una entrada.\n4. Simular compra.\n5. Comprar entrada.\n6. Mostrar entradas compradas.\n7. Mostrar artistas con stand de merch (solo para asistentes VIP)\n8. Iniciar sesion.\n9. Registrarse\n10. Cerrar sesión\n11. Salir.");
             System.out.print("Opción: ");
-            int opcion = introducirEntero();
+            int opcion=0;
+                opcion = introducirEntero(true, MIN_MENU, MAX_MENU);
+
 
             switch (opcion) {
                 case 1: // Listar artistas
@@ -120,22 +122,34 @@ public class Principal implements Interfaz {
                     continuarPrograma = false;
                     System.out.println("Cerrando programa. ¡¡Gracias por su confianza!!");
                     break;
-                default:
-                    System.out.println("Opción no válida.");
-                    break;
             }
         }
     }
 
-    public static int introducirEntero() {
+    public static int introducirEntero(boolean rangoMenu, int rangMin, int rangMax) throws MenuException {
         int n = 0;
         boolean esCorrecto = false;
         while (!esCorrecto) {
             try {
                 n = TECLADO.nextInt();
                 esCorrecto = true;
-            } catch (InputMismatchException e) {
+                TECLADO.nextLine();
+            }
+            catch (InputMismatchException e) {
                 System.out.println("Debe introducir un número entero.");
+                TECLADO.nextLine();
+            }
+            if (rangoMenu) {
+                esCorrecto=false;
+                try {
+                    if (n<rangMin || n>rangMax) {
+                        throw new MenuException();
+                    }
+                    else
+                    esCorrecto=true;
+                } catch (MenuException e) {
+                    System.out.println("El número debe estar dentro del rango ("+rangMin+" y "+rangMax+")");
+                }
             }
         }
         return n;
@@ -187,12 +201,12 @@ public class Principal implements Interfaz {
     }
 
     // Pide al usuario registrarse o iniciar sesión
-    public static Asistente pedirRegistro(Festival f) {
+    public static Asistente pedirRegistro(Festival f) throws MenuException {
         Asistente a = null;
         String cadena = "No se ha encontrado al usuario. Por favor, registrese o inicie sesión a continuación.\n1. Registrarse\n2. Iniciar sesión\n3. Volver al menú principal\nOpción: ";
         System.out.println(cadena);
 
-        int opcion = introducirEntero();
+        int opcion = introducirEntero(true, 1, 3);
         switch (opcion) {
             case 1:
                 a = registrarse();
@@ -201,7 +215,7 @@ public class Principal implements Interfaz {
                 a = iniciarSesion(f);
                 break;
 
-            default:
+            case 3:
                 System.out.println("Volviendo al menú principal.");
                 break;
         }
@@ -209,16 +223,16 @@ public class Principal implements Interfaz {
     }
 
     // Pide al usuario un artista para comprar la entrada y realiza la compra
-    public static void comprarEntrada(Festival f, Asistente a) {
+    public static void comprarEntrada(Festival f, Asistente a) throws MenuException {
         System.out.println("Introduzca a continuación para qué artistas quieres comprar una entrada.");
         System.out.println("(Elija el número de artista que quieras comprar una entrada)");
         System.out.println(f.listarNombresArtistas());
         System.out.print("Artista: ");
-        int idArtista = introducirEntero();
+        int idArtista = introducirEntero(false, 0, 0);
 
         while (idArtista < 0 || idArtista >= f.getNArtistas()) {
             System.out.println("El número de artista introducido no es válido. Introduzca un número válido.");
-            idArtista = introducirEntero();
+            idArtista = introducirEntero(false, 0, 0);
         }
 
         f.comprarEntrada(idArtista, a);
