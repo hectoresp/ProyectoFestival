@@ -6,6 +6,7 @@ public class Principal implements Interfaz {
     final static Scanner TECLADO = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
+        
         Artista[] artistas;
         try {
             artistas = leerArtistas("Artistas.txt");
@@ -13,6 +14,7 @@ public class Principal implements Interfaz {
             artistas = null;
             System.out.println("Error leyendo el archivo 'Artistas.txt'.\n");
         }
+
         Asistente[] asistentes;
         try {
             asistentes = leerAsistentes("Asistentes.txt");
@@ -21,10 +23,14 @@ public class Principal implements Interfaz {
             System.out.println("Error leyendo el archivo 'Asistentes.txt'.\n");
         }
 
-        Festival f = new Festival("JAVASTIC-FEST", "Ciudad Real", artistas, asistentes);
-        Seguridad s = new Seguridad("GSyA SL");
+        if(artistas == null || asistentes == null){
+            System.out.println("Por favor, asegúrese de incluir los ficheros 'Artistas.txt' y 'Asistentes.txt' en este mismo directorio.");
+        } else {
+            Festival f = new Festival("JAVASTIC-FEST", "Ciudad Real", artistas, asistentes);
+            Seguridad s = new Seguridad("GSyA SL");
 
-        ejecutarMenu(f, s);
+            ejecutarMenu(f, s);
+        }
     }
 
     // Menú principal
@@ -45,7 +51,7 @@ public class Principal implements Interfaz {
             }
             System.out.println("\nElija una opcion:\n1. Mostrar artistas programados.\n2. Calcular precio de la seguridad.\n3. Consultar precio de una entrada.\n4. Simular compra.\n5. Comprar entrada.\n6. Mostrar entradas compradas.\n7. Mostrar artistas con stand de merch (solo para asistentes VIP)\n8. Iniciar sesion.\n9. Registrarse\n10. Cerrar sesión\n11. Salir.");
             System.out.print("Opción: ");
-            int opcion = numIntCorrecto();
+            int opcion = introducirEntero();
 
             switch (opcion) {
                 case 1: // Listar artistas
@@ -124,14 +130,14 @@ public class Principal implements Interfaz {
         }
     }
 
-    public static int numIntCorrecto() {
+    public static int introducirEntero() {
         int numMenu = 0;
         boolean numCorrecto = false;
         while (!numCorrecto) {
             try {
                 numMenu = TECLADO.nextInt();
                 numCorrecto = true;
-            } catch (Exception e) {
+            } catch (InputMismatchException e) {
                 System.out.println("Los caracteres introducidos no son válidos, por favor intoduzca un número dentro de las opciones del menú:");
                 TECLADO.nextLine();
 
@@ -191,7 +197,7 @@ public class Principal implements Interfaz {
         String cadena = "No se ha encontrado al usuario. Por favor, registrese o inicie sesión a continuación.\n1. Registrarse\n2. Iniciar sesión\n3. Volver al menú principal\nOpción: ";
         System.out.println(cadena);
 
-        int opcion = numIntCorrecto();
+        int opcion = introducirEntero();
         switch (opcion) {
             case 1:
                 a = registrarse();
@@ -213,11 +219,11 @@ public class Principal implements Interfaz {
         System.out.println("(Elija el número de artista que quieras comprar una entrada)");
         System.out.println(f.listarNombresArtistas());
         System.out.print("Artista: ");
-        int idArtista = numIntCorrecto();
+        int idArtista = introducirEntero();
 
         while (idArtista < 0 || idArtista >= f.getNArtistas()) {
             System.out.println("El número de artista introducido no es válido. Introduzca un número válido.");
-            idArtista = numIntCorrecto();
+            idArtista = introducirEntero();
         }
 
         f.comprarEntrada(idArtista, a);
