@@ -5,7 +5,7 @@ public class Principal implements Interfaz {
 
     final static Scanner TECLADO = new Scanner(System.in);
 
-    public static void main(String[] args) throws IOException,MenuException {
+    public static void main(String[] args) throws IOException {
         
         Artista[] artistas;
         try {
@@ -34,7 +34,7 @@ public class Principal implements Interfaz {
     }
 
     // Menú principal
-    public static void ejecutarMenu(Festival f, Seguridad s) throws MenuException {
+    public static void ejecutarMenu(Festival f, Seguridad s) {
         boolean continuarPrograma = true;
         boolean usuarioRegistrado;
         Asistente a = null;
@@ -126,7 +126,7 @@ public class Principal implements Interfaz {
         }
     }
 
-    public static int introducirEntero(boolean rangoMenu, int rangMin, int rangMax) throws MenuException {
+    public static int introducirEntero(boolean rangoMenu, int rangMin, int rangMax) {
         int n = 0;
         boolean esCorrecto = false;
         while (!esCorrecto) {
@@ -201,7 +201,7 @@ public class Principal implements Interfaz {
     }
 
     // Pide al usuario registrarse o iniciar sesión
-    public static Asistente pedirRegistro(Festival f) throws MenuException {
+    public static Asistente pedirRegistro(Festival f) {
         Asistente a = null;
         String cadena = "No se ha encontrado al usuario. Por favor, registrese o inicie sesión a continuación.\n1. Registrarse\n2. Iniciar sesión\n3. Volver al menú principal\nOpción: ";
         System.out.println(cadena);
@@ -223,7 +223,7 @@ public class Principal implements Interfaz {
     }
 
     // Pide al usuario un artista para comprar la entrada y realiza la compra
-    public static void comprarEntrada(Festival f, Asistente a) throws MenuException {
+    public static void comprarEntrada(Festival f, Asistente a) {
         System.out.println("Introduzca a continuación para qué artistas quieres comprar una entrada.");
         System.out.println("(Elija el número de artista que quieras comprar una entrada)");
         System.out.println(f.listarNombresArtistas());
