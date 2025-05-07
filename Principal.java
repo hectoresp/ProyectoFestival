@@ -61,7 +61,7 @@ public class Principal implements Interfaz {
                     opcion = introducirOpcionMenu();
                     opcionCorrecta = true;
                 } catch(MenuException e){
-                    System.out.println(e);
+                    System.out.println(e.getMessage());
                 }
             }
 
@@ -97,7 +97,7 @@ public class Principal implements Interfaz {
                         try{
                             comprarEntrada(f, a);
                         } catch(EntradaException e){
-                            System.out.println(e);
+                            System.out.println(e.getMessage());
                         }
                     }
                     break;

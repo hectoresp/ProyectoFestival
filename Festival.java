@@ -214,7 +214,7 @@ public class Festival implements Interfaz{
         boolean usuarioEncontrado = false;
 
         for (int i = 0; i < nAsistentes && !usuarioEncontrado; i++) {
-            if (asistentes[i].getDNI().equals(DNI)) {
+            if (asistentes[i].getDNI().equalsIgnoreCase(DNI)) {
                 idUsuario = i;
                 usuarioEncontrado = true;
             }
