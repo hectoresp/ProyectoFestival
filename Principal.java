@@ -51,9 +51,18 @@ public class Principal implements Interfaz {
             }
 
             System.out.println("\nElija una opcion:\n1. Mostrar artistas programados.\n2. Calcular precio de la seguridad.\n3. Consultar precio de una entrada.\n4. Simular compra.\n5. Comprar entrada.\n6. Mostrar entradas compradas.\n7. Mostrar artistas con stand de merch (solo para asistentes VIP)\n8. Iniciar sesion.\n9. Registrarse\n10. Cerrar sesión\n11. Salir.");
-            System.out.print("Opción: ");
-            int opcion=0;
-                opcion = introducirEntero(true, MIN_MENU, MAX_MENU);
+            int opcion = 0; 
+            boolean opcionCorrecta = false;
+
+            while(!opcionCorrecta){
+                try {
+                    System.out.print("Opción: ");
+                    opcion = introducirOpcionMenu();
+                    opcionCorrecta = true;
+                } catch(MenuException e){
+                    System.out.println(e);
+                }
+            }
 
 
             switch (opcion) {
@@ -98,35 +107,48 @@ public class Principal implements Interfaz {
                         System.out.println(a.listarEntradas());
                     }
                     break;
-                case 7: // primero vemos si el usuario está registrado y luego si es VIP, mostrando 2
-                        // mensajes diferentes para cada opción
+                case 7: // Mostrar artistas con stand de merchandising
                     if (!usuarioRegistrado) {
                         a = pedirRegistro(f);
-                    } else if (a instanceof AsistenteVIP==false) {
-                        System.out.println("Debe ser asistente VIP para acceder a esta opción. Se le devolverá al menú principal.");
-                    } else
+                    } else if (!(a instanceof AsistenteVIP)) {
+                        System.out.println("Debe ser un asistente VIP para acceder a esta opción. Volviendo al menú principal.");
+                    } else {
                         System.out.println(f.leerArtistasConStand());
+                    }
                     break;
                 case 8: // Iniciar sesión
-                    a = iniciarSesion(f);
+                    if (a != null){
+                        System.out.println("Ya ha iniciado sesión.");
+                    } else {
+                        a = iniciarSesion(f);
+                    }
                     break;
                 case 9: // Registro
-                    a = registrarse();
-                    f.addAsistente(a);
+                    if (a != null){
+                        System.out.println("Por favor, cierre sesión primero.");
+                    } else {
+                        a = registrarse();
+                        f.addAsistente(a);
+                    }
                     break;
                 case 10: // Cerrar sesión
-                    System.out.println("¡¡Adiós, " + a.getNombre() + "!!\nCerrando sesión...");
-                    a = null;
+                    if (a == null){
+                        System.out.println("Ninguna sesión activa.");
+                    } else {
+                        System.out.println("Adiós, " + a.getNombre() + "\nCerrando sesión...");
+                        a = null;
+                    }
                     break;
                 case 11: // Terminar programa
                     continuarPrograma = false;
-                    System.out.println("Cerrando programa. ¡¡Gracias por su confianza!!");
+                    System.out.println("Cerrando programa. Gracias por su confianza.");
                     break;
             }
         }
     }
 
-    public static int introducirEntero(boolean rangoMenu, int rangMin, int rangMax) {
+    // Pide al usuario un número entero dentro de un rango
+    public static int introducirEntero() {
         int n = 0;
         boolean esCorrecto = false;
         while (!esCorrecto) {
@@ -139,22 +161,19 @@ public class Principal implements Interfaz {
                 System.out.println("Debe introducir un número entero.");
                 TECLADO.nextLine();
             }
-            if (rangoMenu) {
-                esCorrecto=false;
-                try {
-                    if (n<rangMin || n>rangMax) {
-                        throw new MenuException();
-                    }
-                    else
-                    esCorrecto=true;
-                } catch (MenuException e) {
-                    System.out.println("El número debe estar dentro del rango ("+rangMin+" y "+rangMax+")");
-                }
-            }
         }
         return n;
     }
 
+    public static int introducirOpcionMenu() throws MenuException{
+        int n = introducirEntero();
+
+        if (n < MIN_MENU || n > MAX_MENU){
+            throw new MenuException("No existe la opción número " + n);
+        }
+
+        return n;
+    }
     // Pide al usuario todos los datos del registro
     public static Asistente registrarse() {
         System.out.print("Introduzca su DNI: ");
@@ -203,10 +222,9 @@ public class Principal implements Interfaz {
     // Pide al usuario registrarse o iniciar sesión
     public static Asistente pedirRegistro(Festival f) {
         Asistente a = null;
-        String cadena = "No se ha encontrado al usuario. Por favor, registrese o inicie sesión a continuación.\n1. Registrarse\n2. Iniciar sesión\n3. Volver al menú principal\nOpción: ";
-        System.out.println(cadena);
+        System.out.print("\nPor favor, registrese o inicie sesión.\n1. Registrarse\n2. Iniciar sesión\n3. Volver al menú principal\nOpción: ");
 
-        int opcion = introducirEntero(true, 1, 3);
+        int opcion = introducirEntero();
         switch (opcion) {
             case 1:
                 a = registrarse();
@@ -218,6 +236,10 @@ public class Principal implements Interfaz {
             case 3:
                 System.out.println("Volviendo al menú principal.");
                 break;
+
+            default:
+                System.out.println("Opción inválida.");
+                break;
         }
         return a;
     }
@@ -228,11 +250,11 @@ public class Principal implements Interfaz {
         System.out.println("(Elija el número de artista que quieras comprar una entrada)");
         System.out.println(f.listarNombresArtistas());
         System.out.print("Artista: ");
-        int idArtista = introducirEntero(false, 0, 0);
+        int idArtista = introducirEntero();
 
         while (idArtista < 0 || idArtista >= f.getNArtistas()) {
             System.out.println("El número de artista introducido no es válido. Introduzca un número válido.");
-            idArtista = introducirEntero(false, 0, 0);
+            idArtista = introducirEntero();
         }
 
         f.comprarEntrada(idArtista, a);

@@ -1,5 +1,5 @@
 public class MenuException extends Exception{
-    public MenuException(){
-
+    public MenuException(String mensaje){
+        super(mensaje);
     }
 }

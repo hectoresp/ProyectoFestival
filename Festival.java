@@ -36,15 +36,6 @@ public class Festival implements Interfaz{
             }
         }
 
-
-        // for(int i = 0; i < artistas.length && hayArtistas; i++){
-        //     if(artistas[i] != null){
-        //         this.artistas[i] = artistas[i];
-        //         nArtistas++;
-        //     } else {
-        //         hayArtistas = false;
-        //     }
-        // }
         this.asistentes = new Asistente[50];
         boolean hayAsistentes = true;
         nAsistentes = 0;
@@ -57,15 +48,6 @@ public class Festival implements Interfaz{
                 hayAsistentes = false;
             }
         }
-
-        // for(int i = 0; i < asistentes.length && hayAsistentes; i++){
-        //     if(asistentes[i] != null){
-        //         this.asistentes[i] = asistentes[i];
-        //         nAsistentes++;
-        //     } else {
-        //         hayAsistentes = false;
-        //     }
-        // }
     }
 
     // GETTERS
