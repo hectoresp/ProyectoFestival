@@ -231,7 +231,7 @@ public class Festival implements Interfaz{
     // Comprueba si el asistente ha comprado ya 7 entradas
     public boolean puedeComprarEntrada(Asistente a){
         boolean puedeComprar = false;
-        if(a.getNEntradas() != MAX_NUM_ENTRADAS){
+        if(a.getNEntradas() < MAX_NUM_ENTRADAS){
             puedeComprar = true;
         }
         return puedeComprar;
@@ -239,6 +239,10 @@ public class Festival implements Interfaz{
 
     // Saluda al usuario registrado
     public String saludo(Asistente a){
-        return "Hola, " + a.getNombre();
+        return "\nHola, " + a.getNombre();
+    }
+
+    public String mostrarNumEntradas(Asistente a){
+        return "Entradas compradas: " + a.getNEntradas();
     }
 }

@@ -48,6 +48,7 @@ public class Principal implements Interfaz {
 
             if (usuarioRegistrado) {
                 System.out.println(f.saludo(a));
+                System.out.println(f.mostrarNumEntradas(a));
             }
 
             System.out.println("\nElija una opcion:\n1. Mostrar artistas programados.\n2. Calcular precio de la seguridad.\n3. Consultar precio de una entrada.\n4. Simular compra.\n5. Comprar entrada.\n6. Mostrar entradas compradas.\n7. Mostrar artistas con stand de merch (solo para asistentes VIP)\n8. Iniciar sesion.\n9. Registrarse\n10. Cerrar sesión\n11. Salir.");
@@ -67,7 +68,7 @@ public class Principal implements Interfaz {
 
             switch (opcion) {
                 case 1: // Listar artistas
-                    System.out.println("A continuacion listamos todos los artistas.");
+                    System.out.println("A continuacion se muestra un listado de todos los artistas.");
                     System.out.println(f.listarArtistas());
                     break;
                 case 2: // Calcular precio de seguridad
@@ -93,10 +94,10 @@ public class Principal implements Interfaz {
                     if (!usuarioRegistrado) {
                         a = pedirRegistro(f);
                     } else {
-                        if (!f.puedeComprarEntrada(a)) {
-                            System.out.println("No puede comprar mas de 7 entradas.");
-                        } else {
+                        try{
                             comprarEntrada(f, a);
+                        } catch(EntradaException e){
+                            System.out.println(e);
                         }
                     }
                     break;
@@ -245,24 +246,28 @@ public class Principal implements Interfaz {
     }
 
     // Pide al usuario un artista para comprar la entrada y realiza la compra
-    public static void comprarEntrada(Festival f, Asistente a) {
-        System.out.println("Introduzca a continuación para qué artistas quieres comprar una entrada.");
-        System.out.println("(Elija el número de artista que quieras comprar una entrada)");
-        System.out.println(f.listarNombresArtistas());
-        System.out.print("Artista: ");
-        int idArtista = introducirEntero();
+    public static void comprarEntrada(Festival f, Asistente a) throws EntradaException {
+        if (!f.puedeComprarEntrada(a)){
+            throw new EntradaException("No puede comprar más de 7 entradas.");
+        } else {
+            System.out.println("Introduzca a continuación para qué artistas quieres comprar una entrada.");
+            System.out.println("(Elija el número de artista que quieras comprar una entrada)");
+            System.out.println(f.listarNombresArtistas());
+            System.out.print("Artista: ");
+            int idArtista = introducirEntero();
 
-        while (idArtista < 0 || idArtista >= f.getNArtistas()) {
-            System.out.println("El número de artista introducido no es válido. Introduzca un número válido.");
-            idArtista = introducirEntero();
+            while (idArtista < 0 || idArtista >= f.getNArtistas()) {
+                System.out.println("El número de artista introducido no es válido. Introduzca un número válido.");
+                idArtista = introducirEntero();
+            }
+
+            f.comprarEntrada(idArtista, a);
+
+            String nombreArtista = f.encontrarNombreArtista(idArtista);
+            int precioEntrada = f.getPrecioEntrada(nombreArtista);
+            double precioFinal = f.calcularPrecioFinal(precioEntrada, a);
+            System.out.println("El precio por la entrada sera: " + precioFinal + "$.");
         }
-
-        f.comprarEntrada(idArtista, a);
-
-        String nombreArtista = f.encontrarNombreArtista(idArtista);
-        int precioEntrada = f.getPrecioEntrada(nombreArtista);
-        double precioFinal = f.calcularPrecioFinal(precioEntrada, a);
-        System.out.println("El precio por la entrada sera: " + precioFinal + "$.");
     }
 
     // Pide al usuario datos para calcular el numero total de guardas
@@ -292,9 +297,9 @@ public class Principal implements Interfaz {
             descuentoCamisetas -= DESC_CAMI_RECURRENTE;
         }
         double precioTotal = precioEntradas * descuentoEntradas + precioCamisetas * descuentoCamisetas;
-        System.out.println("El precio por comprar las entradas es: " + precioEntradas * descuentoEntradas);
-        System.out.println("El precio por comprar las camisetas es: " + precioCamisetas * descuentoCamisetas);
-        System.out.println("TOTAL: " + precioTotal);
+        System.out.println("El precio por comprar las entradas es: " + precioEntradas * descuentoEntradas + "$");
+        System.out.println("El precio por comprar las camisetas es: " + precioCamisetas * descuentoCamisetas + "$");
+        System.out.println("TOTAL: " + precioTotal + "$");
     }
 
     // Lectura asistentes
@@ -307,8 +312,6 @@ public class Principal implements Interfaz {
         boolean frecuente, vip;
         int tarjetaVIP;
 
-        // utilizamos este bucle para mostrar en pantalla todos los asistentes con sus
-        // datos correspondientes
         int i = 0;
         while (nombre_f.hasNext()) {
             nombre = nombre_f.next();
