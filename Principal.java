@@ -186,11 +186,11 @@ public class Principal implements Interfaz {
         System.out.print("Introduzca su numero de tarjeta de credito: ");
         String tarjeta = TECLADO.next();
 
-        System.out.print("¿Ha asistido antes a nuestro festival? (si/no)");
+        System.out.print("¿Ha asistido antes a nuestro festival? (si/no) ");
         String haAsistidoAntesCadena = TECLADO.next();
 
         while (!haAsistidoAntesCadena.equalsIgnoreCase("si") && !haAsistidoAntesCadena.equalsIgnoreCase("no")) {
-            System.out.println("Por favor, introduzca un valor válido (si/no)");
+            System.out.println("Por favor, introduzca un valor válido (si/no) ");
             haAsistidoAntesCadena = TECLADO.next();
         }
 
