@@ -280,7 +280,7 @@ public class Principal implements Interfaz {
         System.out.println("Simulacion de compra para todos los headliners.");
         Artista[] artistas = f.getArtistas();
         for (int i = 0; i < f.getNArtistas(); i++) {
-            if (artistas[i].esHeadliner()) {
+            if (artistas[i].esHeadliner() && artistas[i].estaConfirmado()) {
                 precioEntradas += artistas[i].getPrecio();
             }
 
